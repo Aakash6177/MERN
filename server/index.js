@@ -12,7 +12,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
-import posts from "./routes/posts.js";
+import postRoutes from "./routes/posts.js";
 import {register} from "./controllers/auth.js";
 import {createPost} from "./controllers/posts.js";
 import { verifyToken } from './middleware/auth.js';
@@ -49,13 +49,13 @@ const upload = multer({storage});
 // AUTHORIZATION ROUTE WITH FILES
 
 app.post("/auth/register", upload.single("picture"),register); // register is the controller 
-app.post("/posts", verifyToken, uplload.single("picture"), createPost);
+app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
 // ROUTES 
 
 app.use("/auth",authRoutes);
 app.use("/users", userRoutes);
-app.use("/posts", posts);
+app.use("/posts", postRoutes);
 
 
 // MONGOOSE SET UP AND SETTING UP THE CONNECTION WITH MONGODB
